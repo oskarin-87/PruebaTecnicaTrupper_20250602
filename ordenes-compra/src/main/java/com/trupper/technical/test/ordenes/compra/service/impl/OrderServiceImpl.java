@@ -1,5 +1,6 @@
 package com.trupper.technical.test.ordenes.compra.service.impl;
 
+import com.trupper.technical.test.ordenes.compra.advise.TrackExecutionTime;
 import com.trupper.technical.test.ordenes.compra.entities.Orders;
 import com.trupper.technical.test.ordenes.compra.repository.OrderRepository;
 import com.trupper.technical.test.ordenes.compra.service.OrderService;
@@ -22,6 +23,8 @@ public class OrderServiceImpl implements OrderService {
         this.orderRepository = orderRepository;
     }
 
+
+    @TrackExecutionTime
     @Override
     public ResponseEntity<List<Orders>> getAllOrders() {
         try {
@@ -39,6 +42,7 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @TrackExecutionTime
     @Override
     public ResponseEntity<HttpStatus> deleteOrderById(Long id) {
         Optional<Orders> orderToBeDeleted = orderRepository.findById(id);
@@ -50,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @TrackExecutionTime
     @Override
     public ResponseEntity<Orders> updateOrder(Orders newProductData, Long id) {
         Optional<Orders> oldEmployeeData = orderRepository.findById(id);
@@ -66,6 +71,7 @@ public class OrderServiceImpl implements OrderService {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @TrackExecutionTime
     @Override
     public ResponseEntity<List<Orders>> addOrder(List<Orders> newProductList) {
 

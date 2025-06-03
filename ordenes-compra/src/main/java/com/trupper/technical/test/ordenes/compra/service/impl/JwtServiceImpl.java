@@ -1,5 +1,6 @@
 package com.trupper.technical.test.ordenes.compra.service.impl;
 
+import com.trupper.technical.test.ordenes.compra.advise.TrackExecutionTime;
 import com.trupper.technical.test.ordenes.compra.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -24,11 +25,13 @@ public class JwtServiceImpl implements JwtService {
     @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
 
+    @TrackExecutionTime
     @Override
     public long getExpirationTime() {
         return jwtExpiration;
     }
 
+    @TrackExecutionTime
     @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
@@ -40,6 +43,7 @@ public class JwtServiceImpl implements JwtService {
      * @param userDetails
      * @return
      */
+    @TrackExecutionTime
     @Override
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
@@ -68,6 +72,8 @@ public class JwtServiceImpl implements JwtService {
         return extractExpiration(token).before(new Date());
     }
 
+
+    @TrackExecutionTime
     @Override
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

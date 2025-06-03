@@ -1,5 +1,6 @@
 package com.trupper.technical.test.ordenes.compra.service.impl;
 
+import com.trupper.technical.test.ordenes.compra.advise.TrackExecutionTime;
 import com.trupper.technical.test.ordenes.compra.dto.LoginUserDto;
 import com.trupper.technical.test.ordenes.compra.dto.RegisterUserDto;
 import com.trupper.technical.test.ordenes.compra.entities.User;
@@ -39,6 +40,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * @param input
      * @return
      */
+    @TrackExecutionTime
     @Override
     public User signup(RegisterUserDto input) {
         User user = new User();
@@ -54,6 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * @param input
      * @return
      */
+    @TrackExecutionTime
     @Override
     public User authenticate(LoginUserDto input) {
         authenticationManager.authenticate(
